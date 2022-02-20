@@ -1,0 +1,21 @@
+My domain are properties, their tenants and property managers (3 classes).
+
+A property has a unique id e.g. 1, an address, a name e.g. House, Apartment, Bungalow etc. and a head tenant.
+-	Properties can have one head tenant and a tenant can only have one property. A Property won't always have a head tenant.
+-	Properties can have many viewings and property managers can assign many viewings to properties (bidirectional).
+-	When a viewing is deleted the property and property manager will remain unaffected.
+-	Properties unique id will be generated.
+-	When a property is deleted the tenants will be deleted.
+
+A tenant will have a name e.g. John Smith and the property they live at
+-	A tenant can live at one property, but a property can hold multiple tenants.
+
+The property manager will have a unique id e.g. 1024, a name e.g. John Smith and a phone extension e.g. 901.
+-	A property manager will manage multiple properties and a property will only have one property manager. 
+-	A property manager will also be the contact for multiple tenants and tenants will only have one property manager to contact.
+-	A property manager can assign many viewings to a property, and a property can have many viewings assigned to it (bidirectional).
+-	A property managers unique id will be generated.
+-	When a property manager is deleted the tenants and properties will remain unaffected.
+-	The tenants a property manager manages will only be "loaded" when necessary
+
+Things will have to be deleted in a certain order e.g. Delete Property Manager first, then you can delete tenants as long as they aren't a head tenant at a property, then you can delete a property regardless of whom is in it.

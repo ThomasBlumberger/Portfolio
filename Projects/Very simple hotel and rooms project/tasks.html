@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Homework 1: Tasks for tb278</title>
+</head>
+
+<body>
+<h1>Homework 1: Tasks for tb278</h1>
+
+<p>Your personal task is to develop a system of hotels and the rooms inside these hotels.</p>
+
+<h2>Task 1: Configuration [4 marks]</h2>
+<p>Configure the project to support the use of JSPs as view technology. JSPs must be configured to be placed inside folder <code>src/main/webapp/WEB-INF/views/</code>.</p>
+
+<h2>Task 2: Domain Classes [13 marks]</h2>
+
+<p>Create class <code>co2103.hw1.domain.Room</code>. With the following private fields:
+<ol>
+  <li><code>String name</code></li>
+  <li><code>String description</code></li>
+  <li><code>String category</code></li>
+  <li><code>int guests</code></li>
+</ol>
+Generate necessary getters and setters. [7 marks]
+</p>
+
+<p>Create class <code>co2103.hw1.domain.Hotel</code>. With the following private fields:
+<ol>
+  <li><code>int id</code></li>
+  <li><code>String name</code></li>
+  <li><code>String description</code></li>
+  <li><code>List&lt;Room&gt; rooms</code></li>
+</ol>
+Generate necessary getters and setters. [6 marks]
+</p>
+
+
+<h2>Task 3: Controller (simple) [5 marks]</h2>
+<p>Create controller <code>co2103.hw1.controller.MainController</code> [2 marks].
+<ol>
+  <li>Requests for URL <code>"/"</code> (POST and GET) should show the view <code>start</code> (the corresponding JSP already exists). [3 marks]</li>
+</ol>
+</p>
+
+<h2>Task 4: Controller, View, and Form [20 marks]</h2>
+
+<p>Create field <code>public static List&lt;Hotel&gt; hotels</code> in class <code>co2103.hw1.Hw1Application</code>. Initialize the list inside class <code>co2103.hw1.Hw1Application</code> to contain one hotel with two rooms. [4 marks]</p>
+
+<p>Create controller <code>co2103.hw1.controller.HotelController</code> and add methods with request mappings for the following behavior:
+<ol>
+  <li>GET requests for URL <code>"/hotels"</code> should show view <code>hotels/list</code>. [2 marks]
+    <ul>
+      <li>Add the list of all hotels from <code>co2103.hw1.Hw1Application</code> to the model as attribute <code>hotels</code>. [2 marks]</li>
+      <li>Create the corresponding JSP to list the name and description of each hotel followed by a link to URL <code>"/rooms?hotel={id of hotel}"</code>, e.g., <code>"/rooms?hotel=3"</code>. [4 marks]</li>
+    </ul>
+  </li>
+  <li>Requests for URL <code>"/newHotel"</code> should show view <code>hotels/form</code>. [3 marks] Create the corresponding JSP with a form with <code>modelAttribute="hotel"</code> and <code>action="/addHotel"</code> and inputs for all fields of class <code>Hotel</code> except for <code>rooms</code>. [5 marks]</li>
+  <li>POST requests for URL <code>"/addHotel"</code> should add a new hotel to the list of all hotels in <code>co2103.hw1.Hw1Application</code> and redirect to <code>/hotels</code>. [3 marks]</li>
+</ol>
+</p>
+
+<h2>Task 5: Controller, View, and Form with additional Parameter [33 marks]</h2>
+
+<p>Create controller <code>co2103.hw1.controller.RoomController</code> and add methods with request mappings for the following behavior:
+<ol>
+  <li>GET requests for URL <code>"/rooms"</code> should show view <code>rooms/list</code>. [2 marks]
+    <ul>
+      <li>Based on request parameter <code>hotel</code> determine the corresponding hotel from <code>co2103.hw1.Hw1Application</code>. [2 marks]</li>
+      <li>Add the list of all rooms of that hotel to the model as attribute <code>rooms</code>. [2 marks]</li>
+      <li>Create the corresponding JSP for the view to list the name, description, and category of each room. [4 marks]</li>
+      <li>At the end of the list in the JSP add a link to URL <code>"/newRoom?hotel={id of hotel whose rooms are listed}"</code>, e.g., <code>"/newRoom?hotel=3"</code>. [4 marks]</li>
+    </ul>
+  </li>
+  <li>Requests for URL <code>"/newRoom"</code> should show view <code>rooms/form</code>. [3 marks]
+    <ul>
+      <li>Create the corresponding JSP with a form with <code>modelAttribute="room"</code> and <code>action="/addRoom"</code> and inputs for all fields of class <code>Room</code>. [6 marks]</li>
+      <li>Also add the request parameter <code>hotel</code> with the ID of the current hotel. [4 marks]</li>
+    </ul>
+  </li>
+  <li>POST requests for URL <code>"/addRoom"</code> should add a new room to the list of rooms of the hotel identified by request parameter <code>hotel</code> and then redirect to <code>/hotels</code>. [6 marks]</li>
+</ol>
+</p>
+
+<h2>Task 6: Validation [25 marks]</h2>
+
+<p>Set up a validator for class <code>Hotel</code> and make it available in controller <code>HotelController</code>. [4 marks]</p>
+<p>When adding a new hotel validate that
+  <ol>
+    <li>The value of field <code>id</code> is unique within the list <code>Hw1Application.hotels</code>. [3 marks]</li>
+    <li>The value of field <code>name</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>description</code> is not empty. [2 marks]</li>
+  </ol>
+  In case of validation errors go back to the form and show error messages for each field in the form.
+</p>
+
+
+<p>Set up a validator for class <code>Room</code> and make it available in controller <code>RoomController</code>. [4 marks]</p>
+<p>When adding a new room validate that
+  <ol>
+    <li>The value of field <code>name</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>description</code> is not empty. [2 marks]</li>
+    <li>The value of field <code>category</code> is either <code>"suite"</code>, <code>"penthouse"</code>, or <code>"simple"</code>. [3 marks]</li>
+    <li>The value of field <code>guests</code> is between (including) 1 and 12. [3 marks]</li>
+  </ol>
+  In case of validation errors go back to the form and show error messages for each field in the form.
+</p>
+
+</body>
+
+</html>

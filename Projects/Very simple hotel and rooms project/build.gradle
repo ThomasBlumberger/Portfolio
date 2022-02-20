@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'co2103'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+task generateTasks(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'co2103.hw1.GenerateTasks'
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	runtime 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.39' // jsps
+	runtime 'javax.servlet:jstl:1.2' // helpful JSP tags
+	
+	compile 'org.apache.commons:commons-csv:1.7'
+}
