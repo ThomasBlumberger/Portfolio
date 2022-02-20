@@ -1,0 +1,609 @@
+---
+openapi: 3.0.1
+info:
+  title: HW3
+  description: This is my HW3 solution
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/tb278/HW3/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://api.co2103.le.ac.uk/v1
+  description: Optional server description
+- url: http://localhost:8080/
+  description: server for HW3
+tags:
+- name: convenors
+  description: Information about the convenors
+- name: modules
+  description: Information about the modules
+- name: sessions
+  description: Information about the sessions
+paths:
+  /convenors:
+    get:
+      tags:
+      - convenors
+      summary: Shows a list of convenors
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Convenor'
+        "400":
+          description: Bad request
+    post:
+      tags:
+      - convenors
+      summary: Creates a convenor
+      requestBody:
+        $ref: '#/components/requestBodies/ConvenorBody'
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /convenors/{id}:
+    get:
+      tags:
+      - convenors
+      summary: Find convenor by id
+      description: Returns a single convenor
+      parameters:
+      - name: id
+        in: path
+        description: ID of convenor to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Convenor'
+        "404":
+          description: ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+    put:
+      tags:
+      - convenors
+      summary: Update Convenor by ID
+      description: Updates a single convenor
+      parameters:
+      - name: id
+        in: path
+        description: ID of convenor to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        $ref: '#/components/requestBodies/ConvenorBody'
+      responses:
+        "200":
+          description: Succesfully Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Convenor'
+        "404":
+          description: ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+    delete:
+      tags:
+      - convenors
+      summary: Deletes a convenor by ID
+      description: Deletes a single convenor
+      parameters:
+      - name: id
+        in: path
+        description: ID of convenor to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Succesfully Deleted
+        "404":
+          description: ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /convenors/{id}/modules:
+    get:
+      tags:
+      - convenors
+      summary: Finds modules by convenor ID
+      description: Finds modules taught by specific convenor
+      parameters:
+      - name: id
+        in: path
+        description: ID of convenor to find modules
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Succesfully found modules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        "404":
+          description: ID Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /modules:
+    get:
+      tags:
+      - modules
+      summary: Shows a list of all modules
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        "400":
+          description: Bad request
+    post:
+      tags:
+      - modules
+      summary: Creates a module
+      requestBody:
+        $ref: '#/components/requestBodies/ModuleBody'
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "409":
+          description: ID conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /modules/{id}:
+    get:
+      tags:
+      - modules
+      summary: Find module by Code
+      description: Finds a module by given ID/Code
+      parameters:
+      - name: id
+        in: path
+        description: Code of Module to find module
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        "404":
+          description: Code Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+    delete:
+      tags:
+      - modules
+      summary: Delete module by ID
+      description: Deletion of single module by ID
+      parameters:
+      - name: id
+        in: path
+        description: Code of module to delete
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response
+        "404":
+          description: Code Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+    patch:
+      tags:
+      - modules
+      summary: Partial update of module
+      description: Able to partially update a module if necessary
+      parameters:
+      - name: id
+        in: path
+        description: Code of module to patch/partially update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Code Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /modules/{id}/sessions:
+    get:
+      tags:
+      - sessions
+      summary: Find sessions via module ID
+      description: Finds the sessions associated with the modules via their ID
+      parameters:
+      - name: id
+        in: path
+        description: Code of module to find sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "404":
+          description: Code Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+    post:
+      tags:
+      - sessions
+      summary: Create sessions for modules by ID
+      description: Creates a session for a module specified by ID
+      parameters:
+      - name: id
+        in: path
+        description: Code of module to create sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/SessionBody'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "404":
+          description: Code Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+  /modules/{code}/sessions/{id}:
+    get:
+      tags:
+      - sessions
+      summary: Finds singular session via module ID and session ID
+      description: Finds the session associated with the module code that has a valid session ID
+      parameters:
+      - name: code
+        in: path
+        description: Code of module to find associated sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of session to find within associated module
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+              examples:
+                codebadexample:
+                  summary: Code Not Found
+                idbadexample:
+                  summary: ID Not Found
+    put:
+      tags:
+      - sessions
+      summary: Update sessions in module via module code and session ID
+      description: Finds the associated session via module code and session Id and allows updating
+      parameters:
+      - name: code
+        in: path
+        description: Code of module to find associated sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of session to find within associated module
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+              examples:
+                codebadexample:
+                  summary: Code Not Found
+                idbadexample:
+                  summary: ID not found
+    delete:
+      tags:
+      - sessions
+      summary: Delete session within associated module
+      description: Finds associated sessions via module code and deletes the provided session via ID
+      parameters:
+      - name: code
+        in: path
+        description: Code of module to find associated sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of session to find within associated module
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK response
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+              examples:
+                codebadexample:
+                  summary: Code Not Found
+                idbadexample:
+                  summary: ID Not Found
+    patch:
+      tags:
+      - sessions
+      summary: Partial update of sessions in module via module code and session ID
+      description: Finds the associated session via module code and session ID and to partial update
+      parameters:
+      - name: code
+        in: path
+        description: Code of module to find associated sessions
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: ID of session to find within associated module
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+              examples:
+                codebadexample:
+                  summary: Code Not Found
+                idbadexample:
+                  summary: ID Not Found
+  /sessions:
+    get:
+      tags:
+      - sessions
+      summary: Filter between different query params
+      description: Ability to filter to find session via module Code or Convenor ID or Both
+      responses:
+        "200":
+          description: OK response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+              examples:
+                modulefoundexample:
+                  summary: Module code found and sessions returned
+                convenorfoundexample:
+                  summary: Convenor id found and modules and sessions returned
+        "400":
+          description: Bad Request
+    delete:
+      tags:
+      - sessions
+      summary: Deletes all sessions
+      description: Deletes all sessions as required
+      responses:
+        "200":
+          description: OK response
+        "400":
+          description: Nothing to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+components:
+  schemas:
+    ErrorInfo:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Error message
+    Convenor:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        position:
+          type: string
+          enum:
+          - GTA
+          - Lecturer
+          - Professor
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Module'
+    Module:
+      type: object
+      properties:
+        code:
+          type: string
+        title:
+          type: string
+        level:
+          type: integer
+        optional:
+          type: boolean
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+    Session:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        topic:
+          type: string
+        dateandtime:
+          type: string
+          format: date-time
+        duration:
+          type: integer
+  requestBodies:
+    ConvenorBody:
+      description: A JSON object containing convenor information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Convenor'
+      required: true
+    ModuleBody:
+      description: A JSON object containing module information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Module'
+      required: true
+    SessionBody:
+      description: A JSON object containing session information
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Session'
+      required: true
