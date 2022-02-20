@@ -1,0 +1,508 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	width: 100%;
+	height: 97%;
+}
+
+p, label, a {
+	font-family: 'Open Sans', sans-serif;
+	color: #696969;
+}
+#radioLabel{
+	color: white;
+	text-align:center;
+}
+
+input[name="radioBut"] {
+	  float: right;
+}
+a {
+	color: #7289da;
+	text-decoration: none;
+}
+
+p {
+	font-size: 12px;
+}
+
+p1 {
+	font-family: 'Open Sans', sans-serif;
+	color: white;
+	font-size: 15px;
+}
+
+#createAcc_title {
+	font-family: 'Open Sans', sans-serif;
+	color: #696969;
+	text-align: center;
+	font-size: 25px;
+}
+
+h2 {
+	font-size: 15px;
+}
+
+header {
+	top: 0;
+	left: 0;
+	z-index: 2;
+	position: fixed;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 0;
+	
+	width: 100%;
+	height: 50px;
+	
+	background-color: #2c2f33;
+}
+
+header > a {
+	color: white;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	width: 100%;
+}
+
+a.navigate_btn {
+
+	padding-top: 10px;
+	color: white;
+	border: 1px outset black;
+    height:75px;
+    width:300px;
+    font-size: 21px;
+    cursor:pointer;
+    border-radius: 15px 15px;
+    text-align: center;
+    background-color: #778899;
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+a.navigate_btn:hover {
+	background-color: #23272a;
+}
+
+.content {
+	z-index: 0;
+	position: absolute;
+	left: 100px;
+	top: 50px;
+	height: 70%;
+	width: calc(100% - 250px);
+	padding: 20px;
+}
+footer {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	color: white;
+	text-align: center;
+	
+	margin-bottom: 10px;
+}
+
+a.sec_but {
+	padding: 10px;
+	color: white;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+a.sec_but:hover {
+	background-color: #7289da;
+}
+
+/* adding a new cw */
+.createAccForm {
+	margin-top: 20px;
+}
+ 
+.createAccForm > label {
+	font-family: 'Roboto', sans-serif;
+}
+
+.createAccForm > input[type=text], .createAccForm > input[type=password], .createAccForm > input[type=number], .createAccForm > input[type=date], .createAccForm > input[type=email], #autocomplete {
+
+  width: 100%;
+  padding: 8px 8px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.createAcc_main {
+	width: 100%;
+	height: 100%;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+h1  {
+	text-align: center;
+	color: black;
+}
+
+.createUser_main {
+	width: 100%;
+	height: 100%;
+	color: grey;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.createUser_box {
+	display: center;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	
+	width: 800px;
+	height: auto;
+	
+	padding: 40px;
+	
+
+	border-style: solid;
+	border-color: grey;
+	border-width: thin;
+}
+.createAcc_box {
+	display: center;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: column;
+	
+	width: 800px;
+	height: auto;
+	
+	padding: 40px;
+	
+	background-color: white;
+	border-style: solid;
+	border-color: grey;
+	border-width: thin;
+}
+.err  {
+	margin-bottom: 14px;
+	color: #ff6666;
+	font-size: 15px;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.createAccForm > button {
+  background-color: #006699;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.but2 {
+	width: 20%!important;
+	display: block!important;
+}
+
+.in2 {
+	width: 80%!important;
+}
+
+.createAccForm > button:hover {
+  opacity: 0.8;
+}
+
+.error {
+	color: red;
+	font-size: 14px;
+}
+
+.drop_container {
+	position: relative;
+	display: inline-block;
+}
+
+.dropbutton {
+	height: 50px;
+	padding-right: 20px;
+	padding-left: 20px;
+	
+	font-size: 15px;
+	font-family: Roboto, Arial, sans-serif;
+	color: white;
+	
+	background-color: inherit;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+.dropbutton:hover, .dropbutton:focus {
+	background-color: #23272a;
+}
+
+.topBarBtn:hover, .topBarBtn:focus {
+	background-color: #23272a;
+}
+
+.dropdown_contents {
+	top: 50px;
+	
+	display: none;
+	position: fixed;
+	background-color: #2c2f33;
+	min-width: 100%;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown_contents > a {
+	color: white;
+  	padding: 12px 16px;
+  	display: block;
+}
+
+.dropdown_contents > a:hover {
+	background-color: #23272a;
+	cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.show {display:block;}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2c2f33;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: inline;}
+
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.content{
+	margin-top: 50px;
+}
+
+.topBarBtn {
+	height: 50px;
+	padding-right: 20px;
+	padding-left: 20px;
+	width: 400px;
+	padding-top: 15px;
+	
+	font-size: 15px;
+	font-family: Roboto, Arial, sans-serif;
+	color: white;
+	text-align: center;
+	
+	background-color: inherit;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.dashboardPage {
+	background-color: #FFFFF0;
+}
+
+.objdiv {
+	display: flex;
+	flex-direction: column;
+	
+	padding: 10px;	
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
+	background-color: #2F4F4F;
+	
+	width: 100%;
+	
+}
+
+
+.objdiv:nth-of-type(1) {
+	margin-top: 0px;
+}
+
+.objdiv-inline {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	
+	padding: 10px;	
+	padding-right: 0px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
+	background-color: #F5F5DC;
+}
+
+.objdiv > h2, .objdiv-inline > h2 {
+	font-size: 20px;
+	margin-bottom: 10px;
+	color:white;
+}
+
+.objdiv > p, .objdiv-inline > p {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+}
+
+.objdiv > .buts, .objdiv-inline.buts {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+a.sec_but {
+	padding: 10px;
+	color:white;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #2F4F4F;
+}
+
+a.sec_but:hover {
+	background-color: #23272a;
+}
+a.sec_but_add{
+		padding: 10px;
+	color:white;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #2F4F4F;
+    width: 100%;
+}
+a.sec_but_add:hover {
+	background-color: #23272a;
+}
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+
+#container {
+  text-align: center;
+  margin: 0;
+}
+
+#qr-canvas {
+  margin: auto;
+  width: calc(100% - 20px);
+  max-width: 400px;
+}
+
+#btn-scan-qr {
+  cursor: pointer;
+  display: inline-block;
+}
+
+#sni_value{
+	width: 90%;
+}
+#btn-scan-qr img {
+  vertical-align: middle;
+  width: 70px;
+  padding: 15px;
+  background: white;
+}
+.content_dash {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+}
+.answered_label {
+	color:white;
+}
+
+#map {
+  height: 70%;
+}
