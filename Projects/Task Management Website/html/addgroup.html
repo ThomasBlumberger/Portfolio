@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Group Member</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body id="dashboardPage">
+<h1 id="weekHeader"></h1>
+<h3 id="versionNum">V 1.0.0</h3>
+<label class="switch disabled" id="switch">
+  <input type="checkbox">
+  <span class="slider" id="slider"></span>
+</label><br><br>
+<button class="btn" id="accountSetting" onclick="openNav()"><i class="bi bi-person-circle"></i></button>
+<div>
+<div class="navbar">
+<ul class="leftsideBar" id="leftsideBar"> 
+  <li><a title="Add task icon" id="addTask" href="#Add" onclick="newTask();"><i class="bi bi-plus-square"></i></a></li>
+  <li><a id = "editTask" title="Edit task icon" href="#Edit" onclick="editTask()"><i class="bi bi-pencil-square"></i></a></li>
+  <li><a class="delete" title="Delete task icon" id="deleteTask" onclick="clearStorage()" href="#Delete"><i class="bi bi-trash"></i></a></li>
+  <li><a id="calendar" title="Calendar icon" href="#Calendar" onclick="openCalendar()"><i class="bi bi-calendar-date"></i></a></li>
+  <li><a id="addGroupMember" title="Add group member icon" href="#AddGroupMember" onclick="addGroup()"><i class="bi bi-person-plus"></i></a></li>
+  <li id="settingIcon"><a id="settings" title="Settings icon" onclick="openNavSetting()""><i class="bi bi-gear"></i></a></li>
+</ul>
+</div>
+<div id="myDIV">
+<ul class="rightsideBar" id="rightsideBar">
+  <li><button title="Home button" class="but active" id="homeDashboard" onclick="backHome();">Home</button></li>
+  <li><button title="Home button" class="but" id="workDashboard" onclick="backHome();">Work</button></li>
+  <li><button title="Home button" class="but" id="schoolDashboard" onclick="backHome();">School</button></li>
+</ul>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h1 id="accountHead">Account</h1>
+  <a title = "My Account Option" onclick="openMyAcc()" href="#">My Account</a>
+  <a title = "My Group option" onclick="openMygroup()" href="#">My Group</a>
+  <a title="Delete account option" id="deleteAccount" href="#" onclick="deleteAcc()">Delete Account</a>
+  <a title="Sign out option" id="signOut" href="#" onclick="signOut();">Sign Out     <i class="bi bi-box-arrow-right bi-2x"></i></a>
+</div>
+<div id="mySidenavSettings" class="sidenavSettings">
+  <a href="javascript:void(0)" class="closebtnSettings" onclick="closeNavSetting()">&times;</a>
+  <h1 id="settingHead">Settings</h1>
+  <a title="Colour customisation settings" onclick="openColour()" href="#">Colour Customisation</a>
+  <a title="Notification Settings" onclick="openNotifications()" href="#">Notifications</a>
+  <a title="Print task overview option" onclick="printOverview()" href="#">Print Overview of tasks</a>
+</div>
+
+<div class="formContain">
+<form class="groupMemberAdd" id="groupMemberAdd" action="dashboard.html">
+<strong>Name of member: </strong><input type="text" required="true" name="addMember" id="addMember" class="addMember">
+<label for="relationship"><strong>Relationship: </strong></label>
+<select id="relationship" name="relationship" required="true">
+<option value="Refuse">Prefer not to say</option>
+<option value="Parent">Parent</option>
+<option value="Sibling">Sibling</option>
+<option value="Child">Child</option>
+<option value="Partner">Partner</option>
+<option value="Housemate">Housemate</option>
+</select>
+<label for="groupAllocation"><strong>Which group do you want to add member to: </strong></label>
+<select id="groupAllocation" name="groupAllocation" required="true" onchange="checkGroup(this.value);">
+<option value="Group01">Group 01</option>
+<option value="Group02">Group 02</option>
+<option value="Group03">Group 03</option>
+<option value="new">New group</option>
+</select>
+<label id="newGroupLabel" style="display:none;"><strong>Name of new group: </strong></label><input type="text" name="newGroup" id="newGroup" style='display:none;'/>
+<input type="button" value="Cancel" onclick="backHome()" id="cancelTask">
+<input type="submit" id="submitTask" value="Add Member">
+</form>
+</div>
+<script src="../scripts/addGroupjs.js">
+</script>
+</body>
+</html>

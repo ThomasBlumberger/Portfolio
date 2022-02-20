@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colour Customisation</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<meta charset="utf-8">
+	<meta content='width=device-width, initial-scale=1' name='viewport'/>
+	<meta name="format-detection" content="telephone=no">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body id="dashboardPage">
+<h1 id="weekHeader"></h1>
+<h3 id="versionNum">V 1.0.0</h3>
+<label class="switch" id="switch">
+  <input id="toggleSwitch" type="checkbox">
+  <span class="slider"></span>
+</label><br><br>
+<button class="btn" id="accountSetting" onclick="openNav()"><i class="bi bi-person-circle"></i></button>
+<div class="navbar">
+<ul class="leftsideBar" id="leftsideBar"> 
+  <li><a title="Add task icon" id="addTask" href="#Add" onclick="newTaskColor();"><i class="bi bi-plus-square"></i></a></li>
+  <li><a id = "editTask" title="Edit task icon" href="#Edit" onclick="editTaskColor()"><i class="bi bi-pencil-square"></i></a></li>
+  <li><a class="delete" title="Delete all tasks" id="deleteTask" onclick="clearStorage()" href="#Delete"><i class="bi bi-trash"></i></a></li>
+  <li><a id="calendar" title="Calendar icon" href="#Calendar" onclick="openCalendarColor()"><i class="bi bi-calendar-date"></i></a></li>
+  <li><a id="addGroupMember" title="Add group member icon" href="#AddGroupMember" onclick="addGroupColor()"><i class="bi bi-person-plus"></i></a></li>
+  <li id="settingIcon"><a id="settings" title="Settings icon" onclick="openNavSetting()""><i class="bi bi-gear"></i></a></li>
+</ul>
+</div>
+<div id="myDIV">
+<ul class="rightsideBar" id="rightsideBar">
+  <li><button title="Home view button" class="but active" id="homeDashboard" onclick="showHome();">Home</button></li>
+  <li><button title="Work view button" class="but" id="workDashboard" onclick="showWork()">Work</button></li>
+  <li><button title="School view button" class="but" id="schoolDashboard" onclick="showSchool()">School</button></li>
+</ul>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h1 id="accountHead">Account</h1>
+  <a title = "My Account Option" onclick="openMyAccColor()" href="#">My Account</a>
+  <a title = "My Group option" onclick="openMygroupColor()" href="#">My Group</a>
+  <a title="Delete account option" id="deleteAccount" onclick="deleteAccColor()" href="#">Delete Account</a>
+  <a title="Sign out option" id="signOut" href="#" onclick="signOutColor();">Sign Out     <i class="bi bi-box-arrow-right bi-2x"></i></a>
+</div>
+<div id="mySidenavSettings" class="sidenavSettings">
+  <a href="javascript:void(0)" class="closebtnSettings" onclick="closeNavSetting()">&times;</a>
+  <h1 id="settingHead">Settings</h1>
+  <a title="Colour customisation settings" onclick="openColourSelf()" href="#">Colour Customisation</a>
+  <a title="Notification Settings" onclick="openNotificationsColor()" href="#">Notifications</a>
+  <a title="Print task overview option" onclick="printOverview()" href="#">Print Overview of tasks</a>
+</div>
+<div id="wrapper">
+<input class="colourButs" type="button" onclick="backHome()" value="Cancel">
+<input class="colourButs" type="button" onclick="backHome()" value="Apply">
+</div>
+<div class="WeekTaskView">
+  <div class="columnBelow" id="columnBelow" style="background-color:rgba(128,128,255,0.6);">
+  <div>
+  <input onchange="colorSelected(this)" type="color">
+</div>
+  <h2 id="UpcomingHead">UPCOMING</h2><br>
+  <form>
+  <input class="SearchBar" id="searchUpcoming"  type="text" onkeyup="myFunctionUpcoming()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter"  style="background-color:rgba(128,128,255,0);"><i class="bi bi-funnel-fill"></i></button><label class="UpcomingLabel" id="UpcomingLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterUpcoming();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterUpcoming();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterUpcoming();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortUpcoming" class="Sort" onclick="sortListDirUpcoming()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+	<ul class="upcoming" id="upcoming">
+	</ul>
+  </div>
+  		  <div id='myModal' class='modal'>
+		  
+  </div>
+  <div class="columnBelow" id="columnBelow" style="background-color:rgba(129,211,248,0.6);">
+  <h2 id="AssignedHead">ASSIGNED</h2><br>
+   <form>
+  <input class="SearchBar" id="searchAssigned" onkeyup="myFunctionAssigned()" type="text" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(129,211,248,0);"><i class="bi bi-funnel-fill"></i></button><label class="AssignedLabel" id="AssignedLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterAssigned();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterAssigned();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterAssigned();">Show All</a>
+	</div>
+	</div><br>
+	<button class="Sort" id="sortAssigned" onclick="sortListDirAssigned();" style="background-color:rgba(129,211,248,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="assigned" id="assigned">
+  </div>
+  <div class="columnBelow" id="columnBelow" style="background-color:rgba(202,249,130,0.6);">
+  <h2 id="NotesHead">NOTES</h2><br>
+   <form>
+  <input class="SearchBar" id="searchNotes" type="text" onkeyup="myFunctionNotes()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="NotesLabel" id="NotesLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterNotes();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterNotes();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterNotes();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortNotes" class="Sort" onclick="sortListDirNotes();" style="background-color:rgba(202,249,130,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="notes" id="notes">
+	</ul>
+  </div>
+  </div>
+</div>
+<div class="DayTaskView" style="display:none;">
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="MondayTask"></h3>
+<input class="SearchBar" id="searchMonday"  type="text" onkeyup="myFunctionMonday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="mondayDayViewLabel" id="mondayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterMonday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterMonday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterMonday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortMonday" class="Sort" onclick="sortListDirMonday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="mondayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="TuesdayTask"></h3>
+ <input class="SearchBar" id="searchTuesday"  type="text" onkeyup="myFunctionTuesday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="tuesdayDayViewLabel" id="tuesdayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterTuesday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterTuesday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterTuesday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortTuesday" class="Sort" onclick="sortListDirTuesday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="tuesdayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="WednesdayTask"></h3>
+ <input class="SearchBar" id="searchWednesday"  type="text" onkeyup="myFunctionWednesday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="wednesdayDayViewLabel" id="wednesdayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterWednesday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterWednesday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterWednesday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortWednesday" class="Sort" onclick="sortListDirWednesday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="wednesdayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="ThursdayTask"></h3>
+ <input class="SearchBar" id="searchThursday"  type="text" onkeyup="myFunctionThursday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="thursdayDayViewLabel" id="thursdayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterThursday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterThursday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterThursday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortThursday" class="Sort" onclick="sortListDirThursday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="thursdayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="FridayTask"></h3>
+ <input class="SearchBar" id="searchFriday"  type="text" onkeyup="myFunctionFriday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="fridayDayViewLabel" id="fridayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterFriday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterFriday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterFriday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortFriday" class="Sort" onclick="sortListDirFriday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="fridayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="SaturdayTask"></h3>
+ <input class="SearchBar" id="searchSaturday"  type="text" onkeyup="myFunctionSaturday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="saturdayDayViewLabel" id="saturdayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSaturday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSaturday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSaturday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSaturday" class="Sort" onclick="sortListDirSaturday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="saturdayDayView"></ul>
+</div>
+<div class="columnBelowDay" id="columnBelowDay" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="SundayTask"></h3>
+ <input class="SearchBar" id="searchSunday"  type="text" onkeyup="myFunctionSunday()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="sundayDayViewLabel" id="sundayDayViewLabel"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSunday();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSunday();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSunday();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSunday" class="Sort" onclick="sortListDirSunday()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="sundayDayView"></ul>
+</div>
+</div>
+<div class="schoolView" style="display:none;">
+  <div class="columnBelowSchool" id="columnBelowSchool" style="background-color:rgba(128,128,255,0.6);">
+  <h2 id="UpcomingHead">UPCOMING</h2><br>
+  <form>
+  <input class="SearchBar" id="searchUpcomingSchool"  type="text" onkeyup="myFunctionUpcomingSchool()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter"  style="background-color:rgba(128,128,255,0);"><i class="bi bi-funnel-fill"></i></button><label class="UpcomingLabel" id="UpcomingLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterUpcomingSchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterUpcomingSchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterUpcomingSchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortUpcomingSchool" class="Sort" onclick="sortListDirUpcomingSchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+	<ul class="upcoming" id="upcomingSchool">
+	</ul>
+  </div>
+  <div class="columnBelowSchool" id="columnBelowSchool" style="background-color:rgba(129,211,248,0.6);">
+  <h2 id="AssignedHead">ASSIGNED</h2><br>
+   <form>
+  <input class="SearchBar" id="searchAssignedSchool" onkeyup="myFunctionAssignedSchool()" type="text" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(129,211,248,0);"><i class="bi bi-funnel-fill"></i></button><label class="AssignedLabel" id="AssignedLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterAssignedSchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterAssignedSchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterAssignedSchool();">Show All</a>
+	</div>
+	</div><br>
+	<button class="Sort" id="sortAssignedSchool" onclick="sortListDirAssignedSchool();" style="background-color:rgba(129,211,248,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="assigned" id="assignedSchool">
+  </div>
+  <div class="columnBelowSchool" id="columnBelowSchool" style="background-color:rgba(202,249,130,0.6);">
+  <h2 id="NotesHead">NOTES</h2><br>
+   <form>
+  <input class="SearchBar" id="searchNotesSchool" type="text" onkeyup="myFunctionNotesSchool()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="NotesLabel" id="NotesLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterNotesSchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterNotesSchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterNotesSchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortNotesSchool" class="Sort" onclick="sortListDirNotesSchool();" style="background-color:rgba(202,249,130,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="notes" id="notesSchool">
+	</ul>
+  </div>
+</div>
+<div class="workDayView" style="display:none;">
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="MondayTaskWork"></h3>
+ <input class="SearchBar" id="searchMondayWork"  type="text" onkeyup="myFunctionMondayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="mondayDayViewLabel" id="mondayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterMondayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterMondayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterMondayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortMondayWorkWork" class="Sort" onclick="sortListDirMondayWorkWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="mondayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="TuesdayTaskWork"></h3>
+ <input class="SearchBar" id="searchTuesdayWork"  type="text" onkeyup="myFunctionTuesdayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="tuesdayDayViewLabel" id="tuesdayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterTuesdayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterTuesdayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterTuesdayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortTuesdayWork" class="Sort" onclick="sortListDirTuesdayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="tuesdayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="WednesdayTaskWork"></h3>
+ <input class="SearchBar" id="searchWednesdayWork"  type="text" onkeyup="myFunctionWednesdayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="wednesdayDayViewLabel" id="wednesdayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterWednesdayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterWednesdayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterWednesdayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortWednesdayWork" class="Sort" onclick="sortListDirWednesdayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="wednesdayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="ThursdayTaskWork"></h3>
+ <input class="SearchBar" id="searchThursdayWork"  type="text" onkeyup="myFunctionThursdayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="thursdayDayViewLabel" id="thursdayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterThursdayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterThursdayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterThursdayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortThursdayWork" class="Sort" onclick="sortListDirThursdayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="thursdayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="FridayTaskWork"></h3>
+ <input class="SearchBar" id="searchFridayWork"  type="text" onkeyup="myFunctionFridayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="fridayDayViewLabel" id="fridayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterFridayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterFridayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterFridayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortFridayWork" class="Sort" onclick="sortListDirFridayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="fridayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="SaturdayTaskWork"></h3>
+ <input class="SearchBar" id="searchSaturdayWork"  type="text" onkeyup="myFunctionSaturdayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="saturdayDayViewLabel" id="saturdayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSaturdayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSaturdayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSaturdayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSaturdayWork" class="Sort" onclick="sortListDirSaturdayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="saturdayDayViewWork"></ul>
+</div>
+<div class="columnBelowDayWork" id="ColumnBelowDayWork" style="background-color:rgba(202,249,130,0.6);">
+ <h3 id="SundayTaskWork"></h3>
+ <input class="SearchBar" id="searchSundayWork"  type="text" onkeyup="myFunctionSundayWork()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="sundayDayViewLabelWork" id="sundayDayViewLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSundayWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSundayWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSundayWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSundayWork" class="Sort" onclick="sortListDirSundayWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="sundayDayViewWork"></ul>
+</div>
+</div>
+</div>
+<div class="schoolDayView" style="display:none;">
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="MondayTaskSchool"></h3>
+ <input class="SearchBar" id="searchMondaySchool"  type="text" onkeyup="myFunctionMondaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="mondayDayViewLabel" id="mondayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterMondaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterMondaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterMondaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortMondaySchool" class="Sort" onclick="sortListDirMondaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="mondayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="TuesdayTaskSchool"></h3>
+ <input class="SearchBar" id="searchTuesdaySchool"  type="text" onkeyup="myFunctionTuesdaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="tuesdayDayViewLabel" id="tuesdayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterTuesdaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterTuesdaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterTuesdaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortTuesdaySchool" class="Sort" onclick="sortListDirTuesdaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="tuesdayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="WednesdayTaskSchool"></h3>
+ <input class="SearchBar" id="searchWednesdaySchool"  type="text" onkeyup="myFunctionWednesdaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="wednesdayDayViewLabel" id="wednesdayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterWednesdaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterWednesdaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterWednesdaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortWednesdaySchool" class="Sort" onclick="sortListDirWednesdaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="wednesdayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="ThursdayTaskSchool"></h3>
+ <input class="SearchBar" id="searchThursdaySchool"  type="text" onkeyup="myFunctionThursdaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="thursdayDayViewLabel" id="thursdayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterThursdaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterThursdaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterThursdaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortThursdaySchool" class="Sort" onclick="sortListDirThursdaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="thursdayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="FridayTaskSchool"></h3>
+ <input class="SearchBar" id="searchFridaySchool"  type="text" onkeyup="myFunctionFridaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="fridayDayViewLabel" id="fridayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterFridaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterFridaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterFridaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortFridaySchool" class="Sort" onclick="sortListDirFridaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="fridayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="SaturdayTaskSchool"></h3>
+ <input class="SearchBar" id="searchSaturdaySchool"  type="text" onkeyup="myFunctionSaturdaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="saturdayDayViewLabel" id="saturdayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSaturdaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSaturdaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSaturdaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSaturdaySchool" class="Sort" onclick="sortListDirSaturdaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="saturdayDayViewSchool"></ul>
+</div>
+<div class="columnBelowDaySchool" id="columnBelowDaySchool" style="background-color:rgba(202,249,130,0.6);">
+<h3 id="SundayTaskSchool"></h3>
+ <input class="SearchBar" id="searchSundaySchool"  type="text" onkeyup="myFunctionSundaySchool()" name="search" placeholder="Search..">
+<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="sundayDayViewLabel" id="sundayDayViewLabelSchool"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterSundaySchool();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterSundaySchool();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterSundaySchool();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortSundaySchool" class="Sort" onclick="sortListDirSundaySchool()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+<ul id="sundayDayViewSchool"></ul>
+</div>
+</div>
+<div class="workView" style="display:none;">
+  <div class="columnBelowWork" id="columnBelowWork" style="background-color:rgba(128,128,255,0.6);">
+  <h2 id="UpcomingHead">UPCOMING</h2><br>
+  <form>
+  <input class="SearchBar" id="searchUpcomingWork"  type="text" onkeyup="myFunctionUpcomingWork()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter"  style="background-color:rgba(128,128,255,0);"><i class="bi bi-funnel-fill"></i></button><label class="UpcomingLabel" id="UpcomingLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterUpcomingWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterUpcomingWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterUpcomingWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortUpcomingWork" class="Sort" onclick="sortListDirUpcomingWork()" style="background-color:rgba(128,128,255,0);"><i class="bi bi-arrow-down-up"></i></button><br>
+	<ul class="upcoming" id="upcomingWork">
+	</ul>
+  </div>
+  <div class="columnBelowWork" id="columnBelowWork" style="background-color:rgba(129,211,248,0.6);">
+  <h2 id="AssignedHead">ASSIGNED</h2><br>
+   <form>
+  <input class="SearchBar" id="searchAssignedWork" onkeyup="myFunctionAssignedWork()" type="text" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(129,211,248,0);"><i class="bi bi-funnel-fill"></i></button><label class="AssignedLabel" id="AssignedLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterAssignedWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterAssignedWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterAssignedWork();">Show All</a>
+	</div>
+	</div><br>
+	<button class="Sort" id="sortAssignedWork" onclick="sortListDirAssignedWork();" style="background-color:rgba(129,211,248,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="assigned" id="assignedWork">
+  </div>
+  <div class="columnBelowWork" id="columnBelowWork" style="background-color:rgba(202,249,130,0.6);">
+  <h2 id="NotesHead">NOTES</h2><br>
+   <form>
+  <input class="SearchBar" id="searchNotesWork" type="text" onkeyup="myFunctionNotesWork()" name="search" placeholder="Search..">
+	</form>
+	<div class="dropdown">
+    <button class="Filter" style="background-color:rgba(202,249,130,0);"><i class="bi bi-funnel-fill"></i></button><label class="NotesLabel" id="NotesLabelWork"></label><br>
+	<div class="dropdown-content">
+	<a href="#" onclick="jCompletedFilterNotesWork();">Completed</a>
+	<a href="#" onclick="jNotCompletedFilterNotesWork();">Not Completed</a>
+	<a href="#" onclick="jShowAllFilterNotesWork();">Show All</a>
+	</div>
+	</div><br>
+	<button id="sortNotesWork" class="Sort" onclick="sortListDirNotesWork();" style="background-color:rgba(202,249,130,0);"><i class="bi bi-arrow-down-up"></i></button>
+	<ul class="notes" id="notesWork">
+	</ul>
+  </div>
+</div>
+
+<script src="../scripts/mainjs.js">
+</script>
+</body>
+</html>

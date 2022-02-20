@@ -1,0 +1,43 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+    <title>Login</title>    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta charset="utf-8">   
+</head>    
+<body id="loginPage"> 
+<div class="container">   
+	<div class = "header">
+<img src="images/logo.png" alt="Task Manager Logo" class="responsive">
+	</div>    
+    <div class="login"> 
+	<h2>Welcome back</h2><br>	
+    <form id="login">
+        <input type="text"  name="Uname" id="Uname" placeholder="Username">
+		<br><br>		
+        <input type="Password" name="Pass" id="Pass" placeholder="Password">
+		<br><br>
+        <input type="submit" name="log" id="log" value="Login">
+		<br><br>
+		<input type="checkbox" id="check"><label>Remember me</label>
+		<br><br>
+		<label>No account? <a id="loginref" href="#" onclick="createAccount()" style="text-decoration: none;">Create one</a></label>
+		<br>
+		<br><strong>CAN'T LOG IN</strong>
+		<footer>
+		<br><h4><a id="loginref" onclick="forgotUserNav()" href="#">Forgot username?</a></h4>
+        <h4><a id="loginref" onclick="forgotPassNav()" href="#">Forgot password?</a></h4>
+		</footer>
+		<br>
+		<div id="login-error-msg-holder">
+      <p id="login-error-msg">Invalid username and/or password</p>
+    </div>
+		</div>
+  </form>  
+</div>
+ <script src="scripts/loginjs.js">
+
+        </script>   
+</body>    
+</html>  

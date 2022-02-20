@@ -1,0 +1,39 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+    <title>Create Account</title>    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+	<meta charset="utf-8">   
+</head>    
+<body id="loginPage"> 
+<div class="container">   
+<div class = "header">
+<img src="../images/logo.png" alt="Task Manager Logo" class="responsive">
+	</div>    
+    <div class="createAccountDiv"> 
+    <form id="createAcc" action="dashboard.html" onsubmit="return checkPassword(this)">
+	<h2>Create Account</h2><br>	
+        <input type="text" name="Uname" id="firstName" placeholder="First name" required="true">
+		<br><br>		
+		<input type="text" id="lastName" placeholder="Last name" required="true">
+		<br><br>
+		<input type="email" id="emailAddress" placeholder="Email address" required="true">
+		<br><br>
+		<input type="text" required="true" id="userName" placeholder="Username">
+		<br><br>
+		<input type="password" id="passwordCreate" name="password1" placeholder="Create password" required="true">
+		<br><br>
+		<input type="password" name="password2" id="passwordConfirm" placeholder="Confirm password" required="true">
+		<br><br>
+		<input type="button" value="Cancel" onclick="backLogin()" id="cancelAccount">
+        <input type="submit" name="log" id="createAccount" value="Create Account">
+		<br><br>
+		</div>
+  </form>  
+</div>
+ <script src="../scripts/loginjs.js">
+
+        </script>   
+</body>    
+</html>  
